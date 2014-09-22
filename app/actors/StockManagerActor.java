@@ -8,17 +8,17 @@ import java.util.Collections;
 import java.util.Optional;
 import play.libs.Akka;
 
-public class StocksActor extends AbstractActor {
+public class StockManagerActor extends AbstractActor {
 
     private static class LazyStocksActor {
-        public static final ActorRef ref = Akka.system().actorOf(Props.create(StocksActor.class));
+        public static final ActorRef ref = Akka.system().actorOf(Props.create(StockManagerActor.class));
     }
 
     public static ActorRef stocksActor() {
         return LazyStocksActor.ref;
     }
 
-    public StocksActor() {
+    public StockManagerActor() {
         receive(ReceiveBuilder
             .match(Stock.Watch.class, watch -> {
                 String symbol = watch.symbol;
