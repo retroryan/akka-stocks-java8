@@ -26,8 +26,10 @@ public class Application extends Controller {
             // create a new UserActor and give it the default stocks to watch
             final ActorRef userActor = Akka.system().actorOf(Props.create(UserActor.class, out));
             List<String> defaultStocks = Play.application().configuration().getStringList("default.stocks");
+
+            ActorRef stockManager = ActorManagerExtension.ActorManagerExtensionProvider.get(Akka.system()).getStockManager();
             for (String stockSymbol : defaultStocks) {
-                StockManagerActor.stocksActor().tell(new Stock.Watch(stockSymbol), userActor);
+                stockManager.tell(new Stock.Watch(stockSymbol), userActor);
             }
 
             // send all WebSocket message to the UserActor
@@ -35,12 +37,12 @@ public class Application extends Controller {
                 // parse the JSON into Stock.Watch
                 Stock.Watch watchStock = new Stock.Watch(jsonNode.get("symbol").textValue());
                 // send the watchStock message to the StocksActor
-                StockManagerActor.stocksActor().tell(watchStock, userActor);
+                stockManager.tell(watchStock, userActor);
             });
 
             // on close, tell the userActor to shutdown
             in.onClose(() -> {
-                StockManagerActor.stocksActor().tell(new Stock.Unwatch(Optional.empty()), userActor);
+                stockManager.tell(new Stock.Unwatch(Optional.empty()), userActor);
                 Akka.system().stop(userActor);
             });
         });

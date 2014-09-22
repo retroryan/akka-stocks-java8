@@ -10,13 +10,10 @@ import play.libs.Akka;
 
 public class StockManagerActor extends AbstractActor {
 
-    private static class LazyStocksActor {
-        public static final ActorRef ref = Akka.system().actorOf(Props.create(StockManagerActor.class));
+    public static Props props() {
+        return Props.create(StockManagerActor.class, StockManagerActor::new);
     }
 
-    public static ActorRef stocksActor() {
-        return LazyStocksActor.ref;
-    }
 
     public StockManagerActor() {
         receive(ReceiveBuilder
