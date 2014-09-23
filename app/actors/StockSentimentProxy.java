@@ -1,10 +1,12 @@
 package actors;
 
-import akka.actor.*;
+import akka.actor.AbstractActorWithStash;
+import akka.actor.ActorSelection;
+import akka.actor.Address;
+import akka.actor.Props;
 import akka.cluster.Cluster;
 import akka.cluster.ClusterEvent;
 import akka.japi.pf.ReceiveBuilder;
-import akka.remote.RemoteScope;
 import backend.StockSentimentActor;
 import scala.PartialFunction;
 import scala.runtime.BoxedUnit;

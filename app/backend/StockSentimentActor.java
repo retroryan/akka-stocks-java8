@@ -1,10 +1,8 @@
 package backend;
 
-import actors.ActorManagerExtension;
 import actors.Settings;
 import actors.SettingsImpl;
 import akka.actor.AbstractLoggingActor;
-import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
 import akka.pattern.Patterns;
@@ -23,7 +21,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -72,7 +69,7 @@ public class StockSentimentActor extends AbstractLoggingActor {
 
         private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
             int byteLen = in.readInt();
-            byte [] bytes = new byte[byteLen];
+            byte[] bytes = new byte[byteLen];
             int read = in.read(bytes);
             ObjectMapper mapper = new ObjectMapper();
             sentiment = mapper.readTree(bytes);
@@ -94,8 +91,7 @@ public class StockSentimentActor extends AbstractLoggingActor {
                     if (sentimentCache.containsKey(symbol)) {
                         JsonNode jsonNode = sentimentCache.get(symbol);
                         sendSentimentPromise = F.Promise.pure(new SendSentiment(jsonNode));
-                    }
-                    else {
+                    } else {
                         F.Promise<ObjectNode> promiseStockSentiments = getStockSentiments(symbol);
                         sendSentimentPromise = promiseStockSentiments.map(node -> new SendSentiment(node));
                     }

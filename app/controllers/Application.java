@@ -6,6 +6,8 @@ import akka.actor.ActorRef;
 import com.fasterxml.jackson.databind.JsonNode;
 import java.util.List;
 import java.util.Optional;
+
+import models.Stock;
 import play.libs.Akka;
 import play.mvc.Controller;
 import play.mvc.Result;

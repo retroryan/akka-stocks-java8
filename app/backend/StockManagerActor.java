@@ -1,4 +1,4 @@
-package actors;
+package backend;
 
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
@@ -6,7 +6,8 @@ import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
 import java.util.Collections;
 import java.util.Optional;
-import play.libs.Akka;
+
+import models.Stock;
 
 public class StockManagerActor extends AbstractActor {
 

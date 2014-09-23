@@ -1,6 +1,4 @@
-package actors;
-
-import akka.routing.ConsistentHashingRouter;
+package models;
 
 import java.io.Serializable;
 import java.util.Deque;

@@ -7,6 +7,7 @@ import akka.actor.Props;
 import akka.cluster.Cluster;
 import akka.cluster.ClusterEvent;
 import akka.japi.pf.ReceiveBuilder;
+import models.Stock;
 import scala.PartialFunction;
 import scala.runtime.BoxedUnit;
 
