@@ -17,7 +17,6 @@ libraryDependencies ++= Seq(
     "com.typesafe.akka" %% "akka-contrib" % akka,
     "com.typesafe.akka" %% "akka-persistence-experimental" % akka exclude("org.iq80.leveldb","leveldb"),
     "org.iq80.leveldb"  %  "leveldb" % "0.7"
-
 )
 
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-Xlint")
