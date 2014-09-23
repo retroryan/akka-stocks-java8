@@ -1,5 +1,6 @@
 package backend;
 
+import actors.StockManagerActor;
 import akka.actor.ActorSystem;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
@@ -13,7 +14,14 @@ public class MainClusterManager {
     public static void main(String... args) throws IOException {
 
         ActorSystem system = startSystem(args);
+
+        init(system);
+
         commandLoop(system);
+    }
+
+    private static void init(ActorSystem system) {
+        system.actorOf(StockManagerActor.props(), "stockManager");
     }
 
     private static ActorSystem startSystem(String... cmdArgs) {

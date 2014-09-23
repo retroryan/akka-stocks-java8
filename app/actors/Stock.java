@@ -1,16 +1,25 @@
 package actors;
 
+import akka.routing.ConsistentHashingRouter;
+
+import java.io.Serializable;
 import java.util.Deque;
 import java.util.Optional;
 
-public class Stock {
+public class Stock implements Serializable {
+
+    static final long serialVersionUID = 42L;
+
     public static final class Latest {
         public Latest() {}
     }
 
     public static final Latest latest = new Latest();
 
-    public static final class Update {
+    public static final class Update implements Serializable {
+
+        static final long serialVersionUID = Stock.serialVersionUID;
+
         public final String symbol;
         public final Double price;
 
@@ -20,7 +29,10 @@ public class Stock {
         }
     }
 
-    public static final class History {
+    public static final class History implements Serializable {
+
+        static final long serialVersionUID = Stock.serialVersionUID;
+
         public final String symbol;
         public final Deque<Double> history;
 
@@ -30,19 +42,28 @@ public class Stock {
         }
     }
 
-    public static final class Watch {
+    public static final class Watch implements Serializable {
+
+        static final long serialVersionUID = Stock.serialVersionUID;
+
         public final String symbol;
 
         public Watch(String symbol) {
             this.symbol = symbol;
         }
+
+
     }
 
-    public static final class Unwatch {
+    public static final class Unwatch implements  Serializable  {
+
+        static final long serialVersionUID = Stock.serialVersionUID;
+
         public final Optional<String> symbol;
 
         public Unwatch(Optional<String> symbol) {
             this.symbol = symbol;
         }
+
     }
 }

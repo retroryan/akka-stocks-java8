@@ -6,9 +6,11 @@ import com.typesafe.config.Config;
 public class SettingsImpl implements Extension {
 
     SettingsImpl(Config config) {
-        this.SomeSetting = config.getString("some.setting");
+        this.hostname = config.getString("stock.hostname");
+        this.port = config.getString("stock.port");
     }
 
 
-  public final String SomeSetting;
+  public final String hostname;
+  public final String port;
 }
