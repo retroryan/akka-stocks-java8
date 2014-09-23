@@ -6,7 +6,6 @@ import akka.actor.AbstractLoggingActor;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
 import akka.pattern.Patterns;
-import akka.persistence.AbstractPersistentActor;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -29,7 +28,7 @@ import static java.util.stream.Collectors.averagingDouble;
 import static java.util.stream.Collectors.toList;
 import static utils.Streams.stream;
 
-public class StockSentimentActor extends AbstractPersistentActor {
+public class StockSentimentActor extends AbstractLoggingActor {
 
     SettingsImpl settings = Settings.SettingsProvider.get(getContext().system());
 

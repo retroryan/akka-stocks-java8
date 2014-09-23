@@ -3,6 +3,7 @@ package actors;
 
 import akka.actor.*;
 import akka.routing.FromConfig;
+import backend.journal.SharedJournalSetter;
 
 public class ActorManagerExtensionImpl implements Extension {
 
@@ -18,6 +19,8 @@ public class ActorManagerExtensionImpl implements Extension {
 
         stockManagerRouter =
                 system.actorOf(Props.empty().withRouter(FromConfig.getInstance()), "stockManagerRouter");
+
+        system.actorOf(SharedJournalSetter.props(), "shared-journal-setter");
 
     }
 

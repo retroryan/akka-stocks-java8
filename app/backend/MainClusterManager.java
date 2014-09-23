@@ -21,10 +21,8 @@ public class MainClusterManager {
     }
 
     private static void init(ActorSystem system) {
-        //system.actorOf(StockManagerActor.props(), "stockManager");
-
+        system.actorOf(StockManagerActor.props(), "stockManager");
         system.actorOf(StockSentimentActor.props(), "stockSentiment");
-
         system.actorOf(SharedJournalSetter.props(), "shared-journal-setter");
     }
 
