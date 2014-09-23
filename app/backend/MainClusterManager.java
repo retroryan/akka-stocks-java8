@@ -2,8 +2,11 @@ package backend;
 
 import actors.StockManagerActor;
 import akka.actor.ActorSystem;
+import akka.util.Timeout;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import scala.concurrent.duration.Duration;
+import scala.concurrent.duration.FiniteDuration;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +25,7 @@ public class MainClusterManager {
 
     private static void init(ActorSystem system) {
         system.actorOf(StockManagerActor.props(), "stockManager");
+        system.actorOf(StockSentimentActor.props(), "stockSentiment");
     }
 
     private static ActorSystem startSystem(String... cmdArgs) {
@@ -52,6 +56,9 @@ public class MainClusterManager {
         String s = br.readLine();
         if (s.startsWith("s")) {
             system.shutdown();
+            system.awaitTermination();
+            System.exit(0);
+
         } else {
             commandLoop(system);
         }

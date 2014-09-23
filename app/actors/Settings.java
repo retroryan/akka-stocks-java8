@@ -9,6 +9,7 @@ import akka.actor.ExtensionIdProvider;
  */
 public class Settings extends AbstractExtensionId<SettingsImpl>
         implements ExtensionIdProvider {
+
     public final static Settings SettingsProvider = new Settings();
 
     private Settings() {}

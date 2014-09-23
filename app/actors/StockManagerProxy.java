@@ -1,6 +1,5 @@
-package backend;
+package actors;
 
-import actors.Stock;
 import akka.actor.AbstractActorWithStash;
 import akka.actor.ActorSelection;
 import akka.actor.Address;

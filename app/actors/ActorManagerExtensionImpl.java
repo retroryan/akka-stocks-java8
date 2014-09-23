@@ -2,23 +2,21 @@ package actors;
 
 
 import akka.actor.*;
-import backend.StockManagerProxy;
-import backend.StockSentimentActor;
 
 public class ActorManagerExtensionImpl implements Extension {
 
-    private final ActorRef stockSentimentActor;
+    private final ActorRef stockSentimentProxy;
     private final ActorRef stockManagerProxy;
 
     public ActorManagerExtensionImpl(ExtendedActorSystem system) {
 
 
-        stockSentimentActor = system.actorOf(StockSentimentActor.props(), "stockSentimentActor");
+        stockSentimentProxy = system.actorOf(StockSentimentProxy.props(), "stockSentimentProxy");
         stockManagerProxy = system.actorOf(StockManagerProxy.props(), "stockManagerProxy");
     }
 
-    public ActorRef getStockSentimentActor() {
-        return stockSentimentActor;
+    public ActorRef getStockSentimentProxy() {
+        return stockSentimentProxy;
     }
 
     public ActorRef getStockManagerProxy() {

@@ -6,11 +6,10 @@ import com.typesafe.config.Config;
 public class SettingsImpl implements Extension {
 
     SettingsImpl(Config config) {
-        this.hostname = config.getString("stock.hostname");
-        this.port = config.getString("stock.port");
+        this.SENTIMENT_URL = config.getString("sentiment.url");
+        this.TWEET_URL = config.getString("tweet.url");
     }
 
-
-  public final String hostname;
-  public final String port;
+    public final String SENTIMENT_URL;
+    public final String TWEET_URL;
 }
