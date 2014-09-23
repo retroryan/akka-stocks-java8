@@ -1,6 +1,7 @@
 package backend;
 
 import akka.actor.ActorSystem;
+import backend.journal.SharedJournalSetter;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
@@ -22,6 +23,8 @@ public class MainClusterManager {
     private static void init(ActorSystem system) {
         system.actorOf(StockManagerActor.props(), "stockManager");
         system.actorOf(StockSentimentActor.props(), "stockSentiment");
+
+        system.actorOf(SharedJournalSetter.props(), "shared-journal-setter");
     }
 
     private static ActorSystem startSystem(String... cmdArgs) {
