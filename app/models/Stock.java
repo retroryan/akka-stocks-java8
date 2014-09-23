@@ -1,5 +1,7 @@
 package models;
 
+import akka.routing.ConsistentHashingRouter;
+
 import java.io.Serializable;
 import java.util.Deque;
 import java.util.Optional;
@@ -40,7 +42,7 @@ public class Stock implements Serializable {
         }
     }
 
-    public static final class Watch implements Serializable {
+    public static final class Watch implements ConsistentHashingRouter.ConsistentHashable, Serializable {
 
         static final long serialVersionUID = Stock.serialVersionUID;
 
@@ -51,9 +53,13 @@ public class Stock implements Serializable {
         }
 
 
+        @Override
+        public Object consistentHashKey() {
+            return symbol;
+        }
     }
 
-    public static final class Unwatch implements  Serializable  {
+    public static final class Unwatch implements ConsistentHashingRouter.ConsistentHashable, Serializable  {
 
         static final long serialVersionUID = Stock.serialVersionUID;
 
@@ -63,5 +69,10 @@ public class Stock implements Serializable {
             this.symbol = symbol;
         }
 
+
+        @Override
+        public Object consistentHashKey() {
+            return symbol;
+        }
     }
 }

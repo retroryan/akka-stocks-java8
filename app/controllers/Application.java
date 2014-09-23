@@ -29,7 +29,7 @@ public class Application extends Controller {
             final ActorRef userActor = Akka.system().actorOf(Props.create(UserActor.class, out));
             List<String> defaultStocks = Play.application().configuration().getStringList("default.stocks");
 
-            ActorRef stockManager = ActorManagerExtension.ActorManagerExtensionProvider.get(Akka.system()).getStockManagerProxy();
+            ActorRef stockManager = ActorManagerExtension.ActorManagerExtensionProvider.get(Akka.system()).getStockManagerRouter();
             for (String stockSymbol : defaultStocks) {
                 stockManager.tell(new Stock.Watch(stockSymbol), userActor);
             }

@@ -30,3 +30,5 @@ initialize := {
 }
 
 addCommandAlias("rb", "runMain backend.MainClusterManager backend 2551")
+
+addCommandAlias("sj", "runMain backend.journal.SharedJournalApp 2560 shared-journal")

@@ -1,12 +1,10 @@
 package actors;
 
-import akka.actor.AbstractActorWithStash;
-import akka.actor.ActorSelection;
-import akka.actor.Address;
-import akka.actor.Props;
+import akka.actor.*;
 import akka.cluster.Cluster;
 import akka.cluster.ClusterEvent;
 import akka.japi.pf.ReceiveBuilder;
+import akka.routing.FromConfig;
 import models.Stock;
 import scala.PartialFunction;
 import scala.runtime.BoxedUnit;
@@ -24,6 +22,9 @@ public class StockManagerProxy extends AbstractActorWithStash {
     public static Props props() {
         return Props.create(StockManagerProxy.class, StockManagerProxy::new);
     }
+
+    private final ActorRef stockManagerRouter =
+            getContext().actorOf(Props.empty().withRouter(FromConfig.getInstance()), "router");
 
     @Override
     public void preStart() {
