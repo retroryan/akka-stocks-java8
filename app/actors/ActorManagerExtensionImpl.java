@@ -2,33 +2,30 @@ package actors;
 
 
 import akka.actor.*;
-import akka.routing.FromConfig;
-import backend.journal.SharedJournalSetter;
+import backend.StockManagerActor;
+import backend.StockSentimentActor;
 
 public class ActorManagerExtensionImpl implements Extension {
 
-    private final ActorRef stockSentimentProxy;
+    private final ActorRef stockSentimentActor;
     //private final ActorRef stockManagerProxy;
-    private final ActorRef stockManagerRouter;
+    private final ActorRef stockManagerActor;
 
     public ActorManagerExtensionImpl(ExtendedActorSystem system) {
-
-
-        stockSentimentProxy = system.actorOf(StockSentimentProxy.props(), "stockSentimentProxy");
+        stockSentimentActor= system.actorOf(StockSentimentActor.props(), "stockSentimentProxy");
         //stockManagerProxy = system.actorOf(StockManagerProxy.props(), "stockManagerProxy");
 
-        stockManagerRouter =
-                system.actorOf(Props.empty().withRouter(FromConfig.getInstance()), "stockManagerRouter");
-
-        system.actorOf(SharedJournalSetter.props(), "shared-journal-setter");
+        stockManagerActor =
+                system.actorOf(StockManagerActor.props(), "stockManager");
 
     }
 
     public ActorRef getStockSentimentProxy() {
-        return stockSentimentProxy;
+        return stockSentimentActor;
     }
 
-    public ActorRef getStockManagerRouter() {
-        return stockManagerRouter;
+
+    public ActorRef getStockManager() {
+        return stockManagerActor;
     }
 }

@@ -117,6 +117,7 @@ public class StockSentimentActor extends AbstractLoggingActor {
                 .filter(response -> response.getStatus() == Http.Status.OK)
                 .map(response -> stream(response.asJson().findPath("statuses"))
                         .map(s -> s.findValue("text").asText())
+                        .peek(System.out::println)
                         .collect(toList()));
     }
 
